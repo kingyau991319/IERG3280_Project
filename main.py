@@ -36,12 +36,13 @@ class model:
     #   mode = Incidence Matrix
     #   for init the statement
 
-    def __init__(self,size,modes,graphType):
+    def __init__(self,size,modes,graphType,label):
         self.size = size
         self.modes = modes
         self.graphType = graphType
         self.connectionCount = 0
         self.connection = []
+        self.label = np.array(label)
         if modes == 0 or self.modes == modes.Adjacency:
             temp = (size,size)
             self.martix = np.zeros(temp)
@@ -49,6 +50,9 @@ class model:
         else:
             self.martix = np.zeros((size,1))
             print(self.martix)
+        if(len(label) != size):
+            raise Exception('label must relate with size. Now the label and size is {},{}',len(label),size)
+
 
     #   step1: check error 
     #   step2: distingusih what type are
@@ -72,7 +76,7 @@ class model:
         # Adjacency Matrix -> undirected
         # Incidence Matrix -> directed
         # Incidence Matrix -> undirected
-        # Adjacency Matrix -> directed
+
         if (modes == 0 and graphType == 0) or (self.modes == modes.Adjacency and self.graphType == graphType.directed):
             martix[secondNode][firstNode] = 1
 
@@ -86,14 +90,12 @@ class model:
             if(self.connectionCount == 1):
                 martix[firstNode][0] = 1
                 martix[secondNode][0] = -1
-                # print(martix)
+
             else:
                 tempMatrix = np.zeros((self.size,1))
                 tempMatrix[firstNode][0] = 1
                 tempMatrix[secondNode][0] = -1
                 martix = np.append(martix,tempMatrix,axis=1)
-                # print(tempMatrix)
-                # print(martix)
 
         if (modes == 1 and graphType == 1) or (self.modes == modes.Incidence and self.graphType == graphType.undirected):
             size = (1,self.size)
@@ -101,14 +103,12 @@ class model:
             if(self.connectionCount == 1):
                 martix[firstNode][0] = 1
                 martix[secondNode][0] = 1
-                # print(martix)
+
             else:
                 tempMatrix = np.zeros((self.size,1))
                 tempMatrix[firstNode][0] = 1
                 tempMatrix[secondNode][0] = 1
                 martix = np.append(martix,tempMatrix,axis=1)
-                # print(tempMatrix)
-                # print(martix)
 
         self.martix = martix
         self.connectionCount = self.connectionCount + 1
@@ -133,62 +133,62 @@ class model:
             distant[loopCount] = 0
             return distant
 
-        size = self.size - 1
-        loopCount = 0
-        closeness = np.zeros(self.size)
-        for row in self.martix:
-            distant = np.zeros(self.size)
-            distant = distantCount(self,distant,row,0,loopCount)
-            result = size / np.sum(distant)
-            closeness[loopCount] = round(result,4)
-            loopCount = loopCount + 1
-        return closeness
+        if (modes == 0 and graphType == 1) or (self.modes == modes.Adjacency and self.graphType == graphType.undirected):
+            size = self.size - 1
+            loopCount = 0
+            closeness = np.zeros(self.size)
+            for row in self.martix:
+                distant = np.zeros(self.size)
+                distant = distantCount(self,distant,row,0,loopCount)
+                result = size / np.sum(distant)
+                closeness[loopCount] = round(result,4)
+                loopCount = loopCount + 1
+            return closeness
+
+        else:
+            print("mode problem and graphType problem")
+            return -1
 
     def betweennessCentrality(self):
-        FG = nx.DiGraph()
-        FG.add_weighted_edges_from(self.connection)
-        result = nx.betweenness_centrality(FG,weight=True,normalized=False)
-        return result
-
+        if (modes == 0 and graphType == 1) or (self.modes == modes.Adjacency and self.graphType == graphType.undirected):
+            FG = nx.DiGraph()
+            FG.add_weighted_edges_from(self.connection)
+            result = nx.betweenness_centrality(FG,weight=True,normalized=False)
+            return result
+        else:
+            print("mode problem and graphType problem")
+            return -1
 
     def eigenvectorCentrality(self):
         # martix = self.martix
         # martix = nx.adjacency_matrix(martix).todense()
         # eigenvector_centrality = nx.eigenvector_centrality(martix)
+        if (modes == 0 and graphType == 1) or (self.modes == modes.Adjacency and self.graphType == graphType.undirected):
 
-        FG = nx.path_graph(self.connection)
-        result = nx.eigenvector_centrality(FG)
-        for k in result:
-            result[k] = round(result[k],4)
-        return result
+            FG = nx.path_graph(self.connection)
+            result = nx.eigenvector_centrality(FG)
+            for k in result:
+                result[k] = round(result[k],4)
+            return result
+        else:
+            print("mode problem and graphType problem")
+            return -1
 
-        # martix = self.martix
-        # # 1.    solve largest eigenvalue
-        # # 2.    Ax = delta * x
-        # # 3.    gdt the eigenvector centrality x
-        # big_eigenvector = np.linalg.eig(self.martix)
-        # big_eigenvector = big_eigenvector[0]
-        # maxElement = np.amax(big_eigenvector)
-        # maxElement = round(maxElement,4)
-        # # test.martix = test.martix / maxElement
-        # # test.martix = test.martix.round(4)
-        # # print(test.martix)
-        # # print(maxElement)
-        # # print(self.martix)
-        # G = nx.path_graph(self.size)
-        # # testMartix = hash(tuple(self.martix))
-        # centrality = nx.eigenvector_centrality_numpy(G)
-        # print(['%s %0.2f'%(node,centrality[node]) for node in centrality])
+    # only support Adjacency
+    def reduce_matrix_size(self,reduce_label):
+        index = self.label.tolist().index(reduce_label)
+        self.label = np.delete(self.label,index,axis=0)
+        self.martix = np.delete(np.delete(self.martix, index, 1), index, 0)
 
+    def add_matrix_size(self,add_label):
+        self.size = self.size + 1
+        self.martix.resize((self.size+1,self.size+1))
+        self.label = np.append(self.label,add_label)
 
 if __name__ == "__main__":
-    # test = model(4,modes.Adjacency,graphType.undirected)
-    # test.add_connection(1,2)
-    # test.add_connection(0,1)
-    # test.add_connection(2,0)
-    # test.add_connection(3,2)
 
-    test = model(8,modes.Adjacency,graphType.undirected)
+    label = ["test1","test2","test3","test4","test5","test6","test7","test8",]
+    test = model(8,modes.Adjacency,graphType.undirected,label)
     test.add_connection(0,1)
     test.add_connection(0,2)
     test.add_connection(0,3)
@@ -200,12 +200,12 @@ if __name__ == "__main__":
     test.add_connection(3,4)
     test.add_connection(5,6)
     test.add_connection(7,6)
-
+    test.reduce_matrix_size("test3")
     # test.closeness()
-    result_between = test.betweennessCentrality()
-    result_eigen = test.eigenvectorCentrality()
-    closeness = test.closeness()
-    print("test.martix",test.martix)
-    print("closeness",closeness)
-    print("result",result_eigen)
-    print("result_between",result_between)
+    # result_between = test.betweennessCentrality()
+    # result_eigen = test.eigenvectorCentrality()
+    # closeness = test.closeness()
+    # print("test.martix",test.martix)
+    # print("closeness",closeness)
+    # print("result",result_eigen)
+    # print("result_between",result_between)
