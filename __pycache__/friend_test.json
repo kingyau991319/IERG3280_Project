@@ -1,0 +1,72 @@
+{
+    "person1": {
+        "name" : "test1",
+        "age" : 21,
+        "friend" : ["test2","test3","test4"],
+        "shcool" : "school1",
+        "interest" : ["interest2"]
+    },
+    "person2": {
+        "name" : "test2",
+        "age" : 22,
+        "friend" : ["test1","test3","test5","test6"],
+        "shcool" : "school2",
+        "interest" : ["interest1","interest5"]
+    },
+    "person3": {
+        "name" : "test3",
+        "age" : 21,
+        "friend" : ["test1","test2","test3","test9","test11"],
+        "shcool" : "school1",
+        "interest" : ["interest2","interest4"]
+    },
+    "person4": {
+        "name" : "test4",
+        "age" : 22,
+        "friend" : ["test1","test5","test6"],
+        "shcool" : "school1",
+        "interest" : ["interest1","interest2"]
+    },
+    "person5": {
+        "name" : "test5",
+        "age" : 28,
+        "friend" : ["test2","test4","test6","test8"],
+        "shcool" : "school2",
+        "interest" : ["interest2"]
+    },
+    "person6": {
+        "name" : "test6",
+        "age" : 31,
+        "friend" : ["test2","test4","test5","test9","test10"],
+        "shcool" : "school2",
+        "interest" : ["interest5"]
+    },
+    "person7": {
+        "name" : "test7",
+        "age" : 30,
+        "friend" : ["test9","test10"],
+        "shcool" : "school3",
+        "interest" : ["interest3","interest4"]
+    },
+    "person8": {
+        "name" : "test8",
+        "age" : 34,
+        "friend" : ["test5","test10"],
+        "shcool" : "school4",
+        "interest" : ["interest1","interest2","interest4"]
+    },
+    "person9": {
+        "name" : "test9",
+        "age" : 64,
+        "friend" : ["test3","test6","test7"],
+        "shcool" : "school4",
+        "interest" : ["interest1","interest4","interest5"]
+    },
+    "person10": {
+        "name" : "test10",
+        "age" : 68,
+        "friend" : ["test6","test7","test8"],
+        "shcool" : "school5",
+        "interest" : ["interest3","interest4","interest5"]
+    }
+}
