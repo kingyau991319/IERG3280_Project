@@ -24,10 +24,12 @@ class modes(Enum):
     Adjacency = 0
     Incidence = 1
 
+
 @unique
 class graphType(Enum):
     directed = 0
     undirected = 1
+
 
 class model:
 
@@ -106,6 +108,9 @@ class model:
         self.martix = martix
         self.connectionCount = self.connectionCount + 1
 
+
+    # find the closeness, if the num is highest, 
+    # that mean in a group, that is most important and popular person in here
     def closeness(self):
 
         def distantCount(self,distant,row,count,loopCount):
@@ -142,6 +147,7 @@ class model:
             print("mode problem and graphType problem")
             return -1
 
+    # todo
     def betweennessCentrality(self):
         if (modes == 0 and graphType == 1) or (self.modes == modes.Adjacency and self.graphType == graphType.undirected):
             FG = nx.DiGraph()
@@ -152,6 +158,7 @@ class model:
             print("mode problem and graphType problem")
             return -1
 
+    # todo
     def eigenvectorCentrality(self):
 
         if (modes == 0 and graphType == 1) or (self.modes == modes.Adjacency and self.graphType == graphType.undirected):
@@ -164,6 +171,8 @@ class model:
             print("mode problem and graphType problem")
             return -1
 
+    # for adding and subtracting matrix size
+    # it is used for expanding some feature
     def reduce_matrix_size(self,reduce_label):
         index = self.label.tolist().index(reduce_label)
         self.label = np.delete(self.label,index,axis=0)
@@ -177,30 +186,31 @@ class model:
         self.label = np.append(self.label,add_label)
         
 
-if __name__ == "__main__":
+# checking code
+# if __name__ == "__main__":
 
-    label = ["test1","test2","test3","test4","test5","test6","test7","test8",]
-    test = model(8,modes.Adjacency,graphType.undirected,label)
-    test.add_connection(0,1)
-    test.add_connection(0,2)
-    test.add_connection(0,3)
-    test.add_connection(1,3)
-    test.add_connection(1,4)
-    test.add_connection(2,6)
-    test.add_connection(2,7)
-    test.add_connection(2,5)
-    test.add_connection(3,4)
-    test.add_connection(5,6)
-    test.add_connection(7,6)
-    # test.closeness()
-    result_between = test.betweennessCentrality()
-    result_eigen = test.eigenvectorCentrality()
-    closeness = test.closeness()
-    print(closeness)
-    print(result_between)
-    print(result_eigen)
-    print(test.martix)
-    # print("test.martix",test.martix)
-    # print("closeness",closeness)
-    # print("result",result_eigen)
-    # print("result_between",result_between)
+#     label = ["test1","test2","test3","test4","test5","test6","test7","test8",]
+#     test = model(8,modes.Adjacency,graphType.undirected,label)
+#     test.add_connection(0,1)
+#     test.add_connection(0,2)
+#     test.add_connection(0,3)
+#     test.add_connection(1,3)
+#     test.add_connection(1,4)
+#     test.add_connection(2,6)
+#     test.add_connection(2,7)
+#     test.add_connection(2,5)
+#     test.add_connection(3,4)
+#     test.add_connection(5,6)
+#     test.add_connection(7,6)
+#     # test.closeness()
+#     result_between = test.betweennessCentrality()
+#     result_eigen = test.eigenvectorCentrality()
+#     closeness = test.closeness()
+#     print(closeness)
+#     print(result_between)
+#     print(result_eigen)
+#     print(test.martix)
+#     # print("test.martix",test.martix)
+#     # print("closeness",closeness)
+#     # print("result",result_eigen)
+#     # print("result_between",result_between)

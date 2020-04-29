@@ -10,11 +10,16 @@ msg = '''
     3. process with the simulated file? and output the result?
 '''
 
+
+# that is attached with the algorithm simulation, but not exactly can run ,only a test
+# for consideration the simply case and neglecting the possible expanding code here
 class fd_rd:
 
     '''
         for personal input
         that is rely on only a person but also can make an array to make a list?
+        @para profile:  for json file that store the information for some fd
+                        Maybe its relationship comes from a group.
     '''
     def __init__(self,profile,keyfactor="fd"):
         self.profile = profile
@@ -38,31 +43,39 @@ class fd_rd:
             data = json.load(json_file)
             target_data = data[person_name]
 
-        data_len = len(data)
         #build a ajancy matrix
+        # @para label: incidate all list for the header of the json format
+        # @para data_len: all person
+        # @para interest: show the first person interest here
+        # @para output_data: the data that I want to return and output the result
+        # @para interest_count: the sum of same interst with target person
+        # @para school_count: enable to check whatever is it equal to user
+        data_len = len(data)
         label = []
         interest = target_data['interest']
         output_data = {}
         interest_count = {}
         school_count = {}
 
+        # init statement
         for k in data:
             label.append(k)
             interest_count[k] = 0
             school_count[k] = 0
             output_data[k] = 0
 
+        # to build a adjacency matrix and make the connection in this part
         person_process = cg.model(data_len,cg.modes.Adjacency,cg.graphType.undirected,label)
         for i in label:
 
-            # for closeness
+            # for closeness building, if already build, neglect it
             if len(self.closeness) == 0:
                 firstNode = int(i.split("person")[1]) - 1
                 for fd in data[i]["friend"]:
                     secondNode = int(fd.split("person")[1]) - 1
                     person_process.add_connection(firstNode,secondNode)
 
-            # for interest
+            # for interest checking, if interest is same, then add 1
             for k in interest:
                 if k in data[i]["interest"]:
                     interest_count[i] = interest_count[i] + 1
@@ -70,6 +83,7 @@ class fd_rd:
                 school_count[i] = 1
 
         # this is most close to this group one, for compare to the relationship
+        # if alreadly build, just neglect to set closeness
         if len(self.closeness) == 0:
             closeness = person_process.closeness()
         else:
@@ -77,12 +91,15 @@ class fd_rd:
 
         output_data = interest_count
         index = 0
+
+        # it is bulit by the format...  outputData = (scholl_count + interest_count / 2) + closeness
+
         for k in output_data:
             output_data[k] = interest_count[k] + school_count[i]
             output_data[k] = round(output_data[k]/2 + closeness[index],4)
             index = index + 1
 
-        # sorting
+        # sorting, to find the highest relationship
         output_data = {k: v for k, v in sorted(output_data.items(), key=lambda item: item[1],reverse=True)}
         del output_data[person_name]
         self.closeness = closeness
@@ -90,6 +107,7 @@ class fd_rd:
         return output_data
 
     # todo, this is too.... simple and have not any considration
+    # no need to do that now
     def add_person(self,person):
 
         data = 0
