@@ -3,6 +3,8 @@ import networkx as nx
 import connection_graph as cg
 import json
 import math
+import pandas as pd
+import os
 
 msg = '''
     What I need to do?
@@ -28,9 +30,40 @@ class fd_rd:
     # use JSON file to store and add_connection
     
     # output the fd_recommandation
-    # find the close relationship
+    # find the close relationship        
 
-    def output_fd(self, person_name,threshold):
+    def output_fd(self, person_name,threshold,to_csv):
+        
+        def to_csvfile(self,person_name,school_count,closeness,interest_count,age_count,output_data):
+            index = 0
+            new_name = []
+            new_school_count = []
+            new_closeness = []
+            new_interest_count = []
+            new_age_count = []
+            new_output_data = []
+
+            for k in label:
+                if k in output_data:
+                    new_name = np.append(new_name,k)
+                    new_school_count = np.append(new_school_count,school_count[k])
+                    new_closeness = np.append(new_closeness,closeness[index])
+                    new_interest_count = np.append(new_interest_count,interest_count[k])
+                    new_age_count = np.append(new_age_count,age_count[index])
+                    new_output_data = np.append(new_output_data,output_data[k])
+                index = index + 1
+
+            df = pd.DataFrame({
+                    'name': new_name,
+                    'school_count': new_school_count,
+                    'closeness': new_closeness,
+                    'interest_count': new_interest_count,
+                    'age_count': new_age_count,
+                    'output_data': new_output_data,
+            })
+
+            path_name = os.getcwd() + "/person_data/" + person_name + ".csv"
+            df.to_csv(path_name)
 
         # data: for the whole json file
         # target_data: for only one that need to input with
@@ -113,10 +146,15 @@ class fd_rd:
         self.closeness = closeness
 
         # subtract that alreadly is friend and yourselves
+        if to_csv == 1:
+            to_csvfile(self,person_name,school_count,closeness,interest_count,age_count,output_data)
 
         return output_data
 
-    # todo, this is too.... simple and have not any considration
+
+
+
+    # todo
     # no need to do that now
     def add_person(self,person):
 
@@ -140,5 +178,5 @@ if __name__ == "__main__":
     # person = {"name" : "test10","age" : 68,"friend" : ["perons6","perons7","perons8"],"shcool" : "school5","interest" : ["interest3","interest4","interest5"]}
     output_data = []
     threshold = 0
-    output_data = test.output_fd("person1",threshold)
+    output_data = test.output_fd("person1",threshold,to_csv = 1)
     print(output_data)

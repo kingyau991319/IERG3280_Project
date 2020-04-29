@@ -12,7 +12,7 @@ if __name__ == "__main__":
     with open(test.profile) as json_file:
         data = json.load(json_file)
         for k in data:
-            output_data = np.append(output_data,test.output_fd(k,0))
+            output_data = np.append(output_data,test.output_fd(k,0,to_csv = 1))
     f = open("output.txt", "w")
     f.write(str(output_data))
     print(output_data)
