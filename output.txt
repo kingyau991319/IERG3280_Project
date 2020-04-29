@@ -1,0 +1,10 @@
+[{'person10': 2.0294, 'person9': 1.5625, 'person3': 1.5294, 'person8': 1.4737, 'person7': 1.45, 'person6': 1.1923, 'person2': 1.1, 'person5': 1.1, 'person4': 1.0625}
+ {'person9': 1.5625, 'person6': 1.1923, 'person4': 1.0625, 'person10': 1.0294, 'person1': 1.0, 'person8': 0.9737, 'person5': 0.6, 'person3': 0.5294, 'person7': 0.45}
+ {'person1': 1.5, 'person8': 1.4737, 'person5': 1.1, 'person4': 1.0625, 'person9': 1.0625, 'person10': 1.0294, 'person7': 0.95, 'person6': 0.6923, 'person2': 0.6}
+ {'person8': 1.4737, 'person2': 1.1, 'person5': 1.1, 'person9': 1.0625, 'person3': 1.0294, 'person1': 1.0, 'person6': 0.6923, 'person10': 0.5294, 'person7': 0.45}
+ {'person4': 1.0625, 'person3': 1.0294, 'person1': 1.0, 'person8': 0.9737, 'person6': 0.6923, 'person2': 0.6, 'person9': 0.5625, 'person10': 0.5294, 'person7': 0.45}
+ {'person2': 1.1, 'person9': 1.0625, 'person10': 1.0294, 'person1': 1.0, 'person5': 0.6, 'person4': 0.5625, 'person3': 0.5294, 'person8': 0.4737, 'person7': 0.45}
+ {'person10': 1.5294, 'person1': 1.5, 'person9': 1.0625, 'person3': 1.0294, 'person8': 0.9737, 'person6': 0.6923, 'person2': 0.6, 'person5': 0.6, 'person4': 0.5625}
+ {'person4': 1.5625, 'person9': 1.5625, 'person3': 1.5294, 'person1': 1.5, 'person2': 1.1, 'person5': 1.1, 'person10': 1.0294, 'person7': 0.95, 'person6': 0.6923}
+ {'person2': 1.6, 'person10': 1.5294, 'person1': 1.5, 'person8': 1.4737, 'person6': 1.1923, 'person4': 1.0625, 'person3': 1.0294, 'person7': 0.95, 'person5': 0.6}
+ {'person1': 2.5, 'person9': 2.0625, 'person7': 1.95, 'person6': 1.6923, 'person2': 1.6, 'person3': 1.5294, 'person8': 1.4737, 'person5': 1.1, 'person4': 1.0625}]
