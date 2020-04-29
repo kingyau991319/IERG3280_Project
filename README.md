@@ -18,6 +18,13 @@ Sometimes the reason is that the recommended friend have similar interest as the
 Are there any other reasons for such a recommendation? 
 Can you design a recommendation algorithm to briefly characterize these factor?
 
+# Packet
+Here is the packet that my project use and installed by pip3,
+numpy
+pandas
+networkx
+json
+
 # Simulation 
 My simulation only take few factor and make different comparsion to incidate 
 which person are highly recommanded to become your firend.
