@@ -4,69 +4,103 @@
         "age" : 21,
         "friend" : ["person2","person3","person4"],
         "school" : "school1",
-        "interest" : ["interest2","interest5","interest3","interest4"]
+        "interest" : {
+            "interest1" : { "like" : 1 },
+            "interest2" : { "like" : -1 },
+            "interest5": { "like" : 1 },
+            "interest3": { "like" : 1 },
+            "interest4": { "like" : -1 }
+        }
     },
     "person2": {
         "name" : "test2",
         "age" : 22,
         "friend" : ["person1","person3","person5","person6"],
         "school" : "school2",
-        "interest" : ["interest1","interest5"]
+        "interest" : {
+            "interest1": { "like" : -1 },
+            "interest5": { "like" : 1 }
+        }
     },
     "person3": {
         "name" : "test3",
         "age" : 21,
         "friend" : ["person1","person2","person9"],
         "school" : "school1",
-        "interest" : ["interest2","interest4"]
+        "interest" : {
+            "interest2": { "like" : 1 },
+            "interest4": { "like" : 1 }
+        }
     },
     "person4": {
         "name" : "test4",
         "age" : 22,
         "friend" : ["person1","person5","person6"],
         "school" : "school1",
-        "interest" : ["interest1","interest2"]
+        "interest" : {
+            "interest1": { "like" : 1 },
+            "interest2": { "like" : -1 }
+        }
     },
     "person5": {
         "name" : "test5",
         "age" : 28,
         "friend" : ["person2","person4","person6","person8"],
         "school" : "school2",
-        "interest" : ["interest2"]
+        "interest" : {
+            "interest2" : { "like" : -1}
+        }
     },
     "person6": {
         "name" : "test6",
         "age" : 31,
         "friend" : ["person2","person4","person5","person9","person10"],
         "school" : "school2",
-        "interest" : ["interest5"]
+        "interest" : {
+            "interest1" : { "like" : -1}
+        }
     },
     "person7": {
         "name" : "test7",
         "age" : 30,
         "friend" : ["person9","person10"],
         "school" : "school3",
-        "interest" : ["interest3","interest4"]
+        "interest" : {
+            "interest3" : { "like" : -1},
+            "interest5" : { "like" : -1}
+        }
     },
     "person8": {
         "name" : "test8",
         "age" : 34,
         "friend" : ["person5","person10"],
         "school" : "school4",
-        "interest" : ["interest1","interest2","interest4"]
+        "interest" : {
+            "interest1" : { "like" : -1},
+            "interest2" : { "like" : -1},
+            "interest4" : { "like" : 1}
+        }
     },
     "person9": {
         "name" : "test9",
         "age" : 64,
         "friend" : ["person3","person6","person7"],
         "school" : "school4",
-        "interest" : ["interest1","interest4","interest5"]
+        "interest" : {
+            "interest1" : { "like" : 1},
+            "interest4" : { "like" : -1},
+            "interest5" : { "like" : 1}
+        }
     },
     "person10": {
         "name" : "test10",
         "age" : 68,
         "friend" : ["person6","person7","person8"],
         "school" : "school5",
-        "interest" : ["interest3","interest4","interest5"]
+        "interest" : {
+            "interest3" : { "like" : 1},
+            "interest4" : { "like" : -1},
+            "interest5" : { "like" : 1}
+        }
     }
 }

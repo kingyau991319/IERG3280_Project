@@ -2,6 +2,7 @@ import numpy as np
 import networkx as nx
 import connection_graph as cg
 import json
+import math
 
 msg = '''
     What I need to do?
@@ -26,11 +27,10 @@ class fd_rd:
         self.closeness = []
     # use JSON file to store and add_connection
     
-    # function that I need : add_person
     # output the fd_recommandation
     # find the close relationship
 
-    def output_fd(self, person_name):
+    def output_fd(self, person_name,threshold):
 
         # data: for the whole json file
         # target_data: for only one that need to input with
@@ -56,13 +56,16 @@ class fd_rd:
         output_data = {}
         interest_count = {}
         school_count = {}
+        age_count = []
 
         # init statement
         for k in data:
             label.append(k)
+            age_count = np.append(age_count,round(math.sqrt(abs(target_data["age"] - data[k]["age"])) / 10,3))
             interest_count[k] = 0
             school_count[k] = 0
             output_data[k] = 0
+
 
         # to build a adjacency matrix and make the connection in this part
         person_process = cg.model(data_len,cg.modes.Adjacency,cg.graphType.undirected,label)
@@ -78,7 +81,7 @@ class fd_rd:
             # for interest checking, if interest is same, then add 1
             for k in interest:
                 if k in data[i]["interest"]:
-                    interest_count[i] = interest_count[i] + 1
+                    interest_count[i] = interest_count[i] + data[i]["interest"][k]["like"]
             if target_data["school"] == data[i]["school"]:
                 school_count[i] = 1
 
@@ -92,17 +95,24 @@ class fd_rd:
         output_data = interest_count
         index = 0
 
-        # it is bulit by the format...  outputData = (scholl_count + interest_count / 2) + closeness
+        for k in label:
+            if output_data[k] < threshold or k in target_data["friend"]:
+                del output_data[k]
 
+        if person_name in output_data:
+            del output_data[person_name]
+
+        # it is bulit by the format...  outputData = (scholl_count + interest_count / 2) + closeness
         for k in output_data:
             output_data[k] = interest_count[k] + school_count[i]
-            output_data[k] = round(output_data[k]/2 + closeness[index],4)
+            output_data[k] = round(output_data[k]/2 + closeness[index]- age_count[index],4) 
             index = index + 1
 
         # sorting, to find the highest relationship
         output_data = {k: v for k, v in sorted(output_data.items(), key=lambda item: item[1],reverse=True)}
-        del output_data[person_name]
         self.closeness = closeness
+
+        # subtract that alreadly is friend and yourselves
 
         return output_data
 
@@ -124,3 +134,11 @@ class fd_rd:
                         print(i)
         with open(self.profile,"w+") as json_file:
             json.dump(data, json_file)
+
+if __name__ == "__main__":
+    test = fd_rd("friend_test.json")
+    # person = {"name" : "test10","age" : 68,"friend" : ["perons6","perons7","perons8"],"shcool" : "school5","interest" : ["interest3","interest4","interest5"]}
+    output_data = []
+    threshold = 0
+    output_data = test.output_fd("person1",threshold)
+    print(output_data)
