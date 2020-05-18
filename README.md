@@ -33,7 +33,7 @@ Firstly, we need to take the data from JSON, it is simulation the relationship i
 that have few data type, name, school, interests, age and friend
 
 and we need to separate these vlaue and compare them each other
-process and compare them throught different methods, that get the output and sort it
+process and compare them throught different methods, that get the output and sort it to determine how to recommand in the list
 
 # person_data
 That is my csv file to count and store the data, for reference and monitoring 
