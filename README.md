@@ -19,7 +19,7 @@ Are there any other reasons for such a recommendation?
 Can you design a recommendation algorithm to briefly characterize these factor?
 
 # Packet
-Here is the packet that my project use and installed by pip3,
+Here is the packet that my project have used and installed by pip3,
 numpy
 pandas
 networkx
@@ -37,7 +37,8 @@ process and compare them throught different methods, that get the output and sor
 
 # person_data
 That is my csv file to count and store the data, for reference and monitoring 
+The data is simulated by me.
 
 # output.txt
 It is the output data file to show the real number
-I have not set the threshold for that because that is depend on the 
+I have not set the threshold for that because that is depend on the limited data set size
